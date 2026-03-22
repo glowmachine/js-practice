@@ -56,8 +56,6 @@ footer {
     gap: 1rem;
 }
 
-.navbar__item {}
-
 .navbar__item:hover {
     background-color: red;
     border-radius: 10%;
@@ -181,16 +179,12 @@ footer {
     top: 8px;
 }
 
-.todolist__button-icon {
-    /* top: 16px; */
-}
-
 .todolist__button-icon::after {
     bottom: 8px;
 }
 
 .todolist__button-icon.selected::before {
-    top: 0cqb;
+    top: 0px;
     transform: rotate(45deg);
 }
 
