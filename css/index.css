@@ -162,6 +162,10 @@ footer {
     cursor: grabbing;
 }
 
+.todolist__button.selected {
+    cursor: pointer;
+}
+
 .todolist__button-icon,
 .todolist__button-icon::before,
 .todolist__button-icon::after {
