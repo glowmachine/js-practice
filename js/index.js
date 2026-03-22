@@ -41,13 +41,15 @@ class ButtonManager {
     selectButton(btn) {
         this.selectedButton = btn;
         this.selectedIcon = btn.querySelector('.todolist__button-icon');
-        if (this.selectedIcon) {
+        if (this.selectedButton) {
+            this.selectedButton.classList.add('selected');
             this.selectedIcon.classList.add('selected');
         }
     }
 
     deselectButton() {
-        if (this.selectedIcon) {
+        if (this.selectedButton) {
+            this.selectedButton.classList.remove('selected');
             this.selectedIcon.classList.remove('selected');
         }
         this.selectedButton = null;
