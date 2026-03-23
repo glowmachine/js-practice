@@ -73,7 +73,7 @@ class ButtonManager {
         const li = document.createElement('li');
         li.classList.add('todolist__item');
         const input = document.createElement('input');
-        input.classList.add('todolist__add-field');
+        input.classList.add('todolist__field');
 
         //move add-button to new item
         li.appendChild(item.querySelector('.todolist__add-button'));

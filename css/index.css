@@ -83,10 +83,10 @@ footer {
     font-size: 1rem;
 }
 
-.todolist__add-field {
-    font-size: 1rem;
+.todolist__field {
+    font-size: 1.5rem;
     background-color: inherit;
-    border: 1px solid white;
+    border: none;
 }
 
 .todolist__checkbox {
