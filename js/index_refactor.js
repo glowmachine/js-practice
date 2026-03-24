@@ -87,6 +87,37 @@ class ListItem {
         this.isSelected = false;
         return this.isSelected;
     }
+    replaceAddButton() {
+        const label = document.createElement('label');
+        label.className = 'todolist__checkbox';
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.className = 'todolist__checkbox-box';
+        const span = document.createElement('span');
+        span.className = 'todolist__checkbox-style';
+        label.appendChild(input);
+        label.appendChild(span);
+        this.element.prepend(label);
+        this.checkbox = label;
+        this.hasCheckbox = true;
+
+        this.addButton.remove();
+        this.hasAddButton = false;
+    }
+    addActionButton() {
+        const button = document.createElement('button');
+        button.className = 'todolist__action-button';
+        const span = document.createElement('span');
+        span.className = 'todolist__action-button-icon';
+        button.appendChild(span);
+        this.element.appendChild(button);
+        this.actionButton = button;
+        this.hasActionButton = true;
+    }
+    replaceCheckbox() {
+        this.hasCheckbox = false;
+        this.hasAddButton = true;
+    }
 }
 
 class ToDoListApp {
@@ -104,19 +135,81 @@ class ToDoListApp {
     }
 
     init() {
+        this.addButtonClickListener();
         this.checkboxListener();
         this.actionButtonClickListeners();
         this.globalClickListener();
     }
 
-    // addItem() {
-    // }
+    createNewItem() {
+        const newItem = document.createElement('li');
+        newItem.className = 'todolist__item';
+        const button = document.createElement('button');
+        button.type = 'submit';
+        button.className = 'todolist__add-button';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'todolist__field';
+        input.value = '';
+
+        newItem.appendChild(button);
+        newItem.appendChild(input);
+        return newItem;
+    }
+
+    addItem() {
+        // console.log('addItem() was called...');
+        const lastItem = this.items[this.items.length - 1];
+
+        lastItem.replaceAddButton();
+        lastItem.getCheckbox().addEventListener('change', (e) => {
+            if (e.target.checked)
+                lastItem.getField().style.textDecoration = 'line-through';
+            else
+                lastItem.getField().style.textDecoration = 'none';
+        });
+
+        lastItem.addActionButton();
+        lastItem.getActionButton().addEventListener('click', (e) => {
+            e.stopPropagation();
+            const actionButton = e.target.closest('.todolist__action-button');
+            if (this.selectedItem && this.selectedItem.getActionButton() == actionButton) {
+                //there was already a selected item, and this is the same button
+                this.deleteItem(lastItem);
+            } else if (this.selectedItem && this.selectedItem.getActionButton() !== actionButton) {
+                //there was already a selected item, but this is not the same button
+                this.selectedItem.deselect();
+                this.selectedItem = lastItem;
+                this.selectedItem.select();
+            }
+            else {
+                //there was not a selected item, make this the selected item
+                this.selectedItem = lastItem;
+                lastItem.select();
+            }
+        });
+
+        const newItem = new ListItem(this.createNewItem());
+        newItem.getAddButton().addEventListener('click', (e) => {
+            this.addItem();
+        });
+        this.items.push(newItem);
+
+        document.querySelector('.todolist').append(this.items[this.items.length - 1].getElement());
+
+    }
     deleteItem(item) {
         item.getElement().remove();
         this.items.splice(this.items.indexOf(item), 1);
         // console.log('deleteItem(item) was called...');
     }
 
+    addButtonClickListener() {
+        const addButton = document.querySelector('.todolist__add-button');
+        addButton.addEventListener('click', (e) => {
+            this.addItem();
+        });
+    }
     checkboxListener() {
         this.items.forEach(item => {
             if (item.getCheckbox()) {
@@ -170,7 +263,7 @@ class ToDoListApp {
                     //if there is a selected item, deselect it
                     this.selectedItem.deselect();
                     this.selectedItem = null;
-                    console.log('clearing selected item');
+                    // console.log('clearing selected item');
                 }
             }
         });
