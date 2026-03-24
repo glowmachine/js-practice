@@ -10,8 +10,7 @@ class ListItem {
     hasAddButton;
     hasCheckbox;
     hasActionButton;
-    isChecked;
-    deleteReady = false;
+    isChecked = false;
 
     constructor(element) {
         this.element = element;
@@ -20,6 +19,12 @@ class ListItem {
         this.actionButton = this.element.querySelector('.todolist__action-button');
         this.field = this.element.querySelector('.todolist__field');
         this.value = this.element.querySelector('.todolist__field').value;
+    }
+    toJSON() {
+        return {
+            text: this.value,
+            checked: this.isChecked
+        };
     }
     getElement() {
         return this.element;
@@ -112,6 +117,12 @@ class ListItem {
         this.hasCheckbox = false;
         this.hasAddButton = true;
     }
+    check() {
+        this.isChecked = true;
+    }
+    uncheck() {
+        this.isChecked = false;
+    }
 }
 
 class ToDoListApp {
@@ -133,6 +144,36 @@ class ToDoListApp {
         this.checkboxListener();
         this.actionButtonClickListeners();
         this.globalClickListener();
+
+        this.loadButtonListener();
+        this.saveButtonListener();
+    }
+
+    loadList() {
+        const savedData = JSON.parse(sessionStorage.getItem('mySavedData'));
+        savedData.forEach((item) => {
+            this.items.push(new ListItem(item));
+        });
+    }
+
+    saveList() {
+        const jsonItems = this.items.map(item => item.toJSON());
+        // console.log(jsonItems);
+        sessionStorage.setItem('mySavedData', JSON.stringify(jsonItems));
+        const myRetrievedData = JSON.parse(sessionStorage.getItem('mySavedData'));
+        // console.log(myRetrievedData);
+    }
+    loadButtonListener() {
+        document.querySelector('.load-button').addEventListener('click', (e) => {
+            // console.log('clicked load button');
+            // this.loadList();
+        });
+    }
+    saveButtonListener() {
+        document.querySelector('.save-button').addEventListener('click', (e) => {
+            // console.log('clicked save button');
+            this.saveList();
+        });
     }
 
     createNewItem() {
@@ -216,10 +257,14 @@ class ToDoListApp {
                 }
 
                 item.getCheckbox().addEventListener('change', (e) => {
-                    if (e.target.checked)
+                    if (e.target.checked) {
                         item.getField().style.textDecoration = 'line-through';
-                    else
+                        item.check();
+                    }
+                    else {
                         item.getField().style.textDecoration = 'none';
+                        item.uncheck();
+                    }
                 });
             }
         });
