@@ -103,6 +103,9 @@ class ListItem {
     uncheck() {
         this.isChecked = false;
     }
+    setValue(value) {
+        this.value = value;
+    }
 }
 
 class ToDoListApp {
@@ -125,14 +128,18 @@ class ToDoListApp {
         this.actionButtonClickListeners();
         this.globalClickListener();
 
+        this.fieldChangeListener();
         this.loadButtonListener();
         this.saveButtonListener();
     }
 
     loadList() {
         const savedData = JSON.parse(sessionStorage.getItem('mySavedData'));
+        if (!savedData) return;
+
         savedData.forEach((item) => {
-            this.items.push(new ListItem(item));
+            console.log(item);
+            this.addItem(item.text);
         });
     }
 
@@ -146,7 +153,7 @@ class ToDoListApp {
     loadButtonListener() {
         document.querySelector('.load-button').addEventListener('click', (e) => {
             // console.log('clicked load button');
-            // this.loadList();
+            this.loadList();
         });
     }
     saveButtonListener() {
@@ -156,7 +163,7 @@ class ToDoListApp {
         });
     }
 
-    createNewItem() {
+    createNewItem(loadedItem = '') {
         const newItem = document.createElement('li');
         newItem.className = 'todolist__item';
         const button = document.createElement('button');
@@ -165,18 +172,19 @@ class ToDoListApp {
         const input = document.createElement('input');
         input.type = 'text';
         input.className = 'todolist__field';
-        input.value = '';
+        input.value = loadedItem;
 
         newItem.appendChild(button);
         newItem.appendChild(input);
         return newItem;
     }
 
-    addItem() {
+    addItem(loadedItem = '') {
         // console.log('addItem() was called...');
         const lastItem = this.items[this.items.length - 1];
 
         lastItem.replaceAddButton();
+
         lastItem.getCheckbox().addEventListener('change', (e) => {
             if (e.target.checked)
                 lastItem.getField().style.textDecoration = 'line-through';
@@ -204,10 +212,15 @@ class ToDoListApp {
             }
         });
 
-        const newItem = new ListItem(this.createNewItem());
+        const newItem = new ListItem(this.createNewItem(loadedItem));
         newItem.getAddButton().addEventListener('click', (e) => {
             this.addItem();
         });
+        newItem.getField().addEventListener('change', (e) => {
+            newItem.setValue(e.target.value);
+            console.log('value set in new item');
+        });
+
         this.items.push(newItem);
 
         document.querySelector('.todolist').append(this.items[this.items.length - 1].getElement());
@@ -219,6 +232,14 @@ class ToDoListApp {
         // console.log('deleteItem(item) was called...');
     }
 
+    fieldChangeListener() {
+        this.items.forEach(item => {
+            item.getField().addEventListener('change', (e) => {
+                item.setValue(e.target.value);
+                console.log('value set in og item');
+            });
+        });
+    }
     addButtonClickListener() {
         const addButton = document.querySelector('.todolist__add-button');
         addButton.addEventListener('click', (e) => {
