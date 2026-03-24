@@ -20,12 +20,6 @@ class ListItem {
         this.actionButton = this.element.querySelector('.todolist__action-button');
         this.field = this.element.querySelector('.todolist__field');
         this.value = this.element.querySelector('.todolist__field').value;
-        this.getElement();
-        this.getAddButton();
-        this.getCheckbox();
-        this.getActionButton();
-        this.getField();
-        this.getValue();
     }
     getElement() {
         return this.element;
