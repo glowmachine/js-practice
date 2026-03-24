@@ -18,10 +18,13 @@ class ListItem {
         this.addButton = this.element.querySelector('.todolist__add-button');
         this.checkbox = this.element.querySelector('.todolist__checkbox');
         this.actionButton = this.element.querySelector('.todolist__action-button');
+        this.field = this.element.querySelector('.todolist__field');
         this.value = this.element.querySelector('.todolist__field').value;
+        this.getElement();
         this.getAddButton();
         this.getCheckbox();
         this.getActionButton();
+        this.getField();
         this.getValue();
     }
     getElement() {
@@ -56,6 +59,12 @@ class ListItem {
             this.hasActionButton = false;
             return null;
         }
+    }
+    getField() {
+        if (this.field)
+            return this.field;
+        else
+            return null;
     }
     getValue() {
         if (this.value)
@@ -95,6 +104,7 @@ class ToDoListApp {
     }
 
     init() {
+        this.checkboxListener();
         this.actionButtonClickListeners();
         this.globalClickListener();
     }
@@ -107,6 +117,26 @@ class ToDoListApp {
         // console.log('deleteItem(item) was called...');
     }
 
+    checkboxListener() {
+        this.items.forEach(item => {
+            if (item.getCheckbox()) {
+                const checkbox = item.getCheckbox();
+                if (checkbox.checked) {
+                    item.getField().style.textDecoration = 'line-through';
+                }
+                else {
+                    item.getField().style.textDecoration = 'none';
+                }
+
+                item.getCheckbox().addEventListener('change', (e) => {
+                    if (e.target.checked)
+                        item.getField().style.textDecoration = 'line-through';
+                    else
+                        item.getField().style.textDecoration = 'none';
+                });
+            }
+        });
+    }
     actionButtonClickListeners() {
         this.items.forEach(item => {
             if (item.getActionButton()) {
