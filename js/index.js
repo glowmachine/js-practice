@@ -1,15 +1,4 @@
-class Entry {
-    id;
-    text;
-    completed;
-    order;
-    createdAt;
-}
-
 class ListItem {
-    hasAddButton;
-    hasCheckbox;
-    hasActionButton;
     isChecked = false;
 
     constructor(element) {
@@ -31,31 +20,25 @@ class ListItem {
     }
     getAddButton() {
         if (this.addButton) {
-            this.hasAddButton = true;
             return this.addButton;
         }
         else {
-            this.hasAddButton = false;
             return null;
         }
     }
     getCheckbox() {
         if (this.checkbox) {
-            this.hasCheckbox = true;
             return this.checkbox;
         }
         else {
-            this.hasCheckbox = false;
             return null;
         }
     }
     getActionButton() {
         if (this.actionButton) {
-            this.hasActionButton = true;
             return this.actionButton;
         }
         else {
-            this.hasActionButton = false;
             return null;
         }
     }
@@ -98,10 +81,8 @@ class ListItem {
         label.appendChild(span);
         this.element.prepend(label);
         this.checkbox = label;
-        this.hasCheckbox = true;
 
         this.addButton.remove();
-        this.hasAddButton = false;
     }
     addActionButton() {
         const button = document.createElement('button');
@@ -111,7 +92,6 @@ class ListItem {
         button.appendChild(span);
         this.element.appendChild(button);
         this.actionButton = button;
-        this.hasActionButton = true;
     }
     replaceCheckbox() {
         this.hasCheckbox = false;
