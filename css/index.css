@@ -144,7 +144,7 @@ footer {
 
 /* ACTION BUTTON ================================================= */
 
-.todolist__button {
+.todolist__action-button {
     border: none;
     background: transparent;
     width: 2rem;
@@ -153,7 +153,7 @@ footer {
     cursor: grab;
 }
 
-.todolist__button:active {
+.todolist__action-button:active {
     border: none;
     background: transparent;
     width: 2rem;
@@ -162,13 +162,13 @@ footer {
     cursor: grabbing;
 }
 
-.todolist__button.selected {
+.todolist__action-button.selected {
     cursor: pointer;
 }
 
-.todolist__button-icon,
-.todolist__button-icon::before,
-.todolist__button-icon::after {
+.todolist__action-button-icon,
+.todolist__action-button-icon::before,
+.todolist__action-button-icon::after {
     content: "";
     position: absolute;
     background-color: white;
@@ -179,24 +179,24 @@ footer {
     transition: all .5s;
 }
 
-.todolist__button-icon::before {
+.todolist__action-button-icon::before {
     top: 8px;
 }
 
-.todolist__button-icon::after {
+.todolist__action-button-icon::after {
     bottom: 8px;
 }
 
-.todolist__button-icon.selected::before {
+.todolist__action-button-icon.selected::before {
     top: 0px;
     transform: rotate(45deg);
 }
 
-.todolist__button-icon.selected {
+.todolist__action-button-icon.selected {
     background-color: transparent;
 }
 
-.todolist__button-icon.selected::after {
+.todolist__action-button-icon.selected::after {
     bottom: 0px;
     transform: rotate(-45deg);
 }

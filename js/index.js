@@ -6,7 +6,7 @@ class ButtonManager {
     }
 
     init() {
-        const buttons = document.querySelectorAll('.todolist__button');
+        const buttons = document.querySelectorAll('.todolist__action-button');
         buttons.forEach((btn) => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -50,7 +50,7 @@ class ButtonManager {
 
     selectButton(btn) {
         this.selectedButton = btn;
-        this.selectedIcon = btn.querySelector('.todolist__button-icon');
+        this.selectedIcon = btn.querySelector('.todolist__action-button-icon');
         if (this.selectedButton) {
             this.selectedButton.classList.add('selected');
             this.selectedIcon.classList.add('selected');
@@ -105,9 +105,9 @@ class ButtonManager {
 
     insertActionButton(item) {
         const button = document.createElement('button');
-        button.classList.add('todolist__button');
+        button.classList.add('todolist__action-button');
         const span = document.createElement('span');
-        span.classList.add('todolist__button-icon');
+        span.classList.add('todolist__action-button-icon');
 
         button.addEventListener('click', (e) => {
             e.stopPropagation();
