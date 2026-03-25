@@ -54,18 +54,11 @@ class ListItem {
         else
             return null;
     }
-    getSelectStatus() {
-        return this.isSelected;
-    }
     select() {
         this.actionButton.querySelector('.todolist__action-button-icon').classList.add('selected');
-        this.isSelected = true;
-        return this.isSelected;
     }
     deselect() {
         this.actionButton.querySelector('.todolist__action-button-icon').classList.remove('selected');
-        this.isSelected = false;
-        return this.isSelected;
     }
     replaceAddButton() {
         const label = document.createElement('label');
@@ -292,8 +285,6 @@ class ToDoListApp {
                 if (this.selectedItem) {
                     //if there is a selected item, deselect it
                     this.selectedItem.deselect();
-                    this.selectedItem = null;
-                    // console.log('clearing selected item');
                 }
             }
         });
