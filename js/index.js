@@ -285,6 +285,7 @@ class ToDoListApp {
                 if (this.selectedItem) {
                     //if there is a selected item, deselect it
                     this.selectedItem.deselect();
+                    this.selectedItem = null;
                 }
             }
         });
