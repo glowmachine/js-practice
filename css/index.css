@@ -8,6 +8,13 @@
 /* GLOBALS ======================================================= */
 html {
     background-color: cyan;
+    --HUE: 180;
+    --DARKER-HSL: var(--HUE), 33%, 10%;
+    --DARK-HSL: var(--HUE), 33%, 20%;
+    --ACCENT-HSL: var(--HUE), 33%, 50%;
+    --LIGHT-HSL: var(--HUE), 33%, 80%;
+    --LIGHTER-HSL: var(--HUE), 33%, 90%;
+
 }
 
 body {
@@ -16,16 +23,17 @@ body {
     flex-direction: column;
     justify-content: space-around;
     font-family: Arial, Helvetica, sans-serif;
-    scrollbar-color: black transparent;
+    color: hsl(var(--LIGHTER-HSL));
+    scrollbar-color: hsl(var(--DARKER-HSL)) transparent;
 }
 
 header {
-    background-color: darkred;
+    background-color: hsl(var(--DARKER-HSL));
     padding: 1vh 1vh 1vh 1vh;
 }
 
 main {
-    background-color: darkgreen;
+    background-color: hsl(var(--DARK-HSL));
     flex: 1;
     min-height: 0;
     overflow-y: auto;
@@ -34,7 +42,7 @@ main {
 }
 
 footer {
-    background-color: darkblue;
+    background-color: hsl(var(--DARKER-HSL));
     padding: 1vh 1vh 1vh 1vh;
 }
 
@@ -57,12 +65,12 @@ footer {
 }
 
 .navbar__item {
-    color: black;
+    color: hsl(var(--LIGHT-HSL));
     cursor: pointer;
 }
 
 .navbar__item:hover {
-    color: cyan;
+    color: hsl(var(--ACCENT-HSL));
     border-radius: 10%;
 }
 
@@ -85,7 +93,7 @@ footer {
 }
 
 .todolist__item:hover {
-    background-color: green;
+    background-color: hsl(var(--ACCENT-HSL));
 }
 
 .todolist__entry {
@@ -95,6 +103,7 @@ footer {
 .todolist__field {
     font-size: 1.5rem;
     background-color: inherit;
+    color: hsl(var(--LIGHTER-HSL));
     border: none;
 }
 
@@ -111,8 +120,8 @@ footer {
 }
 
 .todolist__checkbox-style {
-    background-color: black;
-    border: 2px solid white;
+    background-color: hsl(var(--DARKER-HSL));
+    border: 2px solid hsl(var(--LIGHT-HSL));
     width: 2rem;
     height: 2rem;
     position: relative;
@@ -127,15 +136,15 @@ footer {
 .todolist__checkbox-box:checked+.todolist__checkbox-style::after {
     position: absolute;
     content: "✓";
-    color: white;
+    color: hsl(var(--LIGHTER-HSL));
     font-size: 2rem;
     top: -20%;
     right: 10%;
 }
 
 .todolist__add-button {
-    background-color: black;
-    border: 2px solid white;
+    background-color: hsl(var(--DARKER-HSL));
+    border: 2px solid hsl(var(--LIGHT-HSL));
     width: 2rem;
     height: 2rem;
     position: relative;
@@ -148,7 +157,7 @@ footer {
     font-size: 3rem;
     top: -47%;
     right: 0%;
-    color: gray;
+    color: hsl(var(--ACCENT-HSL));
 }
 
 /* ACTION BUTTON ================================================= */
@@ -180,7 +189,7 @@ footer {
 .todolist__action-button-icon::after {
     content: "";
     position: absolute;
-    background-color: white;
+    background-color: hsl(var(--LIGHT-HSL));
     border-radius: 5px;
     width: 100%;
     height: 3px;
