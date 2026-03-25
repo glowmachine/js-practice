@@ -58,13 +58,11 @@ class ListItem {
         return this.isSelected;
     }
     select() {
-        // console.log('selecting');
         this.actionButton.querySelector('.todolist__action-button-icon').classList.add('selected');
         this.isSelected = true;
         return this.isSelected;
     }
     deselect() {
-        // console.log('deselecting');
         this.actionButton.querySelector('.todolist__action-button-icon').classList.remove('selected');
         this.isSelected = false;
         return this.isSelected;
@@ -145,20 +143,16 @@ class ToDoListApp {
 
     saveList() {
         const jsonItems = this.items.map(item => item.toJSON());
-        // console.log(jsonItems);
         sessionStorage.setItem('mySavedData', JSON.stringify(jsonItems));
         const myRetrievedData = JSON.parse(sessionStorage.getItem('mySavedData'));
-        // console.log(myRetrievedData);
     }
     loadButtonListener() {
         document.querySelector('.load-button').addEventListener('click', (e) => {
-            // console.log('clicked load button');
             this.loadList();
         });
     }
     saveButtonListener() {
         document.querySelector('.save-button').addEventListener('click', (e) => {
-            // console.log('clicked save button');
             this.saveList();
         });
     }
@@ -180,7 +174,6 @@ class ToDoListApp {
     }
 
     addItem(loadedItem = '') {
-        // console.log('addItem() was called...');
         const lastItem = this.items[this.items.length - 1];
 
         lastItem.replaceAddButton();
@@ -218,7 +211,6 @@ class ToDoListApp {
         });
         newItem.getField().addEventListener('change', (e) => {
             newItem.setValue(e.target.value);
-            console.log('value set in new item');
         });
 
         this.items.push(newItem);
@@ -229,14 +221,12 @@ class ToDoListApp {
     deleteItem(item) {
         item.getElement().remove();
         this.items.splice(this.items.indexOf(item), 1);
-        // console.log('deleteItem(item) was called...');
     }
 
     fieldChangeListener() {
         this.items.forEach(item => {
             item.getField().addEventListener('change', (e) => {
                 item.setValue(e.target.value);
-                console.log('value set in og item');
             });
         });
     }
