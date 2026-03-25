@@ -56,8 +56,13 @@ footer {
     gap: 1rem;
 }
 
+.navbar__item {
+    color: black;
+    cursor: pointer;
+}
+
 .navbar__item:hover {
-    background-color: red;
+    color: cyan;
     border-radius: 10%;
 }
 
