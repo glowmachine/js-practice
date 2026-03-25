@@ -147,17 +147,28 @@ footer {
     border: 2px solid hsl(var(--LIGHT-HSL));
     width: 2rem;
     height: 2rem;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .todolist__add-button:focus::before,
 .todolist__add-button:hover::before {
-    position: absolute;
-    content: "+";
-    font-size: 3rem;
-    top: -47%;
-    right: 0%;
-    color: hsl(var(--ACCENT-HSL));
+    content: "";
+    background-color: hsl(var(--LIGHTER-HSL));
+    height: 80%;
+    width: 3px;
+    transform: translateX(.7rem);
+}
+
+.todolist__add-button:focus::after,
+.todolist__add-button:hover::after {
+    content: "";
+    background-color: hsl(var(--LIGHTER-HSL));
+    width: 80%;
+    height: 3px;
+    transform: translateX(-.1rem);
+
 }
 
 /* ACTION BUTTON ================================================= */
